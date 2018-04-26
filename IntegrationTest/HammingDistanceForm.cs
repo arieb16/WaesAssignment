@@ -224,11 +224,15 @@ namespace WaesAssignment
 		// start the automatic test
 		private void _btnAutoTest_Click( object sender, EventArgs e )
 		{
-			this._btnChangeImg.Enabled = false;
-			this._btnSearch.Enabled = false;
-			this._checkBoxDisplay.Enabled = false;
+			if ( null == this.AutoTestTask )
+			{
+				this._btnChangeImg.Enabled = false;
+				this._btnSearch.Enabled = false;
+				this._checkBoxDisplay.Enabled = false;
+				this._btnAutoTest.Enabled = false;
 
-			this.AutoTestTask = Task.Factory.StartNew( this.AutoTestTaskHandler, TaskCreationOptions.LongRunning );
+				this.AutoTestTask = Task.Factory.StartNew( this.AutoTestTaskHandler, TaskCreationOptions.LongRunning );
+			}
 		}
 
 		// the auto test loop
@@ -285,6 +289,7 @@ namespace WaesAssignment
 				this._btnChangeImg.Enabled = true;
 				this._btnSearch.Enabled = true;
 				this._checkBoxDisplay.Enabled = true;
+				this._btnAutoTest.Enabled = true;
 				this.StopAutoTestEvent.Set( );
 				this.AutoTestTask = null;
 			}
